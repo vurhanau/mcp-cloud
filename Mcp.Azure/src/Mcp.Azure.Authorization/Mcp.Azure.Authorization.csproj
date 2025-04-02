@@ -3,14 +3,14 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <RootNamespace>Mcp.Azure.Rbac</RootNamespace>
+    <RootNamespace>Mcp.Azure.Authorization</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Azure.Identity" />
-    <PackageReference Include="Microsoft.Azure.Management.Authorization" />
+    <PackageReference Include="Azure.ResourceManager.Authorization" />
     <PackageReference Include="Microsoft.Extensions.Hosting" />
     <PackageReference Include="Microsoft.Rest.ClientRuntime" />
     <PackageReference Include="ModelContextProtocol" />

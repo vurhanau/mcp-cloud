@@ -7,8 +7,13 @@ This project provides a standardized interface for accessing Azure cloud resourc
 
 ## Prerequisites
 
-- .NET 8.0 or higher
+- .NET 9.0 or higher
 
 
 ## Supports
-- Azure RBAC role assignments
+- Graph
+    - List service principals
+- Managed Service Identities
+    - List
+- Role-base access control assignments
+    - List

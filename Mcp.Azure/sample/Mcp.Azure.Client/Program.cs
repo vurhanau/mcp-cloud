@@ -45,34 +45,68 @@ if (string.IsNullOrEmpty(tenantId) || string.IsNullOrEmpty(clientId) ||
     throw new InvalidOperationException($"Azure credentials not found in environment variables. Please check your .env file at: {envPath}");
 }
 
-// Execute a tool with credentials from .env file
-var result = await client.CallToolAsync(
-    "ListRoleAssignments",
-    new Dictionary<string, object?>
-    {
-        ["tenantId"] = tenantId,
-        ["clientId"] = clientId,
-        ["clientSecret"] = clientSecret,
-        ["scope"] = $"/subscriptions/{subscriptionId}"
-    },
-    CancellationToken.None);
+await CallLoadContextToolAsync(client, envPath);
 
-// Print the results
-foreach (var assignment in result.Content.Where(c => c.Type == "text"))
+
+var baseParams = new Dictionary<string, object?>
 {
-    try
+    ["tenantId"] = tenantId,
+    ["clientId"] = clientId,
+    ["clientSecret"] = clientSecret,
+};
+await CallToolAsync(client, "ListServicePrincipals", baseParams);
+await CallToolAsync(client, "ListManagedIdentities", new Dictionary<string, object?>(baseParams)
+{
+    ["subscriptionId"] = subscriptionId,
+});
+await CallToolAsync(client, "ListRoleAssignments", new Dictionary<string, object?>(baseParams)
+{
+    ["scope"] = $"/subscriptions/{subscriptionId}",
+});
+
+static async Task CallToolAsync(
+    IMcpClient client, string toolName, Dictionary<string, object?> parameters)
+{
+    var result = await client.CallToolAsync(
+        toolName,
+        parameters,
+        CancellationToken.None);
+
+    // Print the results
+    foreach (var item in result.Content.Where(c => c.Type == "text"))
     {
-        if (assignment.Text is null) continue;
-        // Try to parse and pretty print as JSON
-        var jsonDoc = JsonDocument.Parse(assignment.Text);
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        var prettyJson = JsonSerializer.Serialize(jsonDoc, options);
-        Console.WriteLine(prettyJson);
+        try
+        {
+            if (item.Text is null) continue;
+            // Try to parse and pretty print as JSON
+            var jsonDoc = JsonDocument.Parse(item.Text);
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var prettyJson = JsonSerializer.Serialize(jsonDoc, options);
+            Console.WriteLine(prettyJson);
+        }
+        catch (JsonException)
+        {
+            // If not JSON, print as plain text
+            Console.WriteLine(item.Text);
+        }
     }
-    catch (JsonException)
+}
+
+static async Task CallLoadContextToolAsync(IMcpClient client, string envPath)
+{
+    var context = await client.CallToolAsync(
+        "LoadContext",
+        new Dictionary<string, object?>
+        {
+            ["envPath"] = envPath
+        },
+        CancellationToken.None);
+
+    Console.WriteLine("Loaded Azure context:");
+    foreach (var item in context.Content.Where(c => c.Type == "text"))
     {
-        // If not JSON, print as plain text
-        Console.WriteLine(assignment.Text);
+        if (item.Text is null) continue;
+        Console.WriteLine(item.Text);
     }
 }
 

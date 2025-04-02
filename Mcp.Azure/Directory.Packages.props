@@ -5,12 +5,14 @@
   <ItemGroup>
     <!-- Azure Packages -->
     <PackageVersion Include="Azure.Identity" Version="1.13.2" />
-    <PackageVersion Include="Microsoft.Azure.Management.Authorization" Version="2.13.0-preview" />
-    <PackageVersion Include="Microsoft.Azure.Management.ResourceManager" Version="3.13.1-preview" />
+    <PackageVersion Include="Azure.ResourceManager.Authorization" Version="1.1.4" />
+    <PackageVersion Include="Azure.ResourceManager.ManagedServiceIdentities" Version="1.2.3" />
+    <PackageVersion Include="Azure.ResourceManager" Version="1.13.0" />
+    <PackageVersion Include="Microsoft.Graph" Version="5.75.0" />
 
     <!-- Microsoft Extensions -->
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.3" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
     
     <!-- Model Context Protocol -->
     <PackageVersion Include="ModelContextProtocol" Version="0.1.0-preview.4" />
