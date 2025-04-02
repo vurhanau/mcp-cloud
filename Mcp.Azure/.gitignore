@@ -24,6 +24,11 @@ bld/
 [Ll]og/
 [Ll]ogs/
 
+# Visual Studio Code
+.vscode/
+*.code-workspace
+.history/
+
 # Visual Studio cache/options directory
 .vs/
 
