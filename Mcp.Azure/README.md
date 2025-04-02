@@ -15,5 +15,5 @@ This project provides a standardized interface for accessing Azure cloud resourc
     - List service principals
 - Managed Service Identities
     - List
-- Role-base access control assignments
+- Role-based access control assignments
     - List
