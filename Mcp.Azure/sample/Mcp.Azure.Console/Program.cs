@@ -4,6 +4,7 @@ using Mcp.Azure.Console;
 using Mcp.Azure.Context;
 using dotenv.net;
 using Mcp.Azure.Graph;
+using Mcp.Azure.ResourceManager;
 
 var credentials = LoadAzureCredentials(args);
 if (credentials == null)
@@ -18,6 +19,7 @@ try
     await ListServicePrincipals(credentials);
     ListManagedIdentities(credentials);
     await ListRoleAssignments(credentials);
+    await ListResourceGroups(credentials);
 }
 catch (Exception ex)
 {
@@ -68,6 +70,29 @@ AzureCredentials? LoadAzureCredentials(string[] args)
 
     return new AzureCredentials(tenantId, clientId, clientSecret, subscriptionId);
 }
+
+async Task ListResourceGroups(AzureCredentials credentials)
+{
+    Console.WriteLine("\nListing Resource Groups...");
+    
+    var resourceGroups = await ResourceManagerTools.ListResourceGroups(
+        credentials.SubscriptionId,
+        credentials.TenantId,
+        credentials.ClientId,
+        credentials.ClientSecret
+    );
+
+    var printer = new TablePrinter<ResourceGroup>("Resource Groups", new[]
+    {
+        new ColumnDefinition<ResourceGroup>("Name", rg => rg.Name),
+        new ColumnDefinition<ResourceGroup>("Location", rg => rg.Location),
+        new ColumnDefinition<ResourceGroup>("Managed By", rg => rg.ManagedBy ?? ""),
+        new ColumnDefinition<ResourceGroup>("Tags", rg => rg.Tags != null ? string.Join(", ", rg.Tags.Select(t => $"{t.Key}={t.Value}")) : "")
+    });
+
+    printer.Print(resourceGroups);
+}
+
 
 async Task ListServicePrincipals(AzureCredentials credentials)
 {

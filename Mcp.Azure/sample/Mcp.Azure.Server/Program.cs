@@ -2,6 +2,7 @@
 using Mcp.Azure.Context;
 using Mcp.Azure.ManagedServiceIdentities;
 using Mcp.Azure.Graph;
+using Mcp.Azure.ResourceManager;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -13,6 +14,7 @@ builder.Services
     .AddMcpServer()
     .WithStdioServerTransport()
     .WithToolsFromAssembly(typeof(AzureContextTools).Assembly)
+    .WithToolsFromAssembly(typeof(AzureResourceManagerServer).Assembly)
     .WithToolsFromAssembly(typeof(AzureGraphTools).Assembly)
     .WithToolsFromAssembly(typeof(AzureAuthorizationTools).Assembly)
     .WithToolsFromAssembly(typeof(AzureManagedServiceIdentitiesTools).Assembly);

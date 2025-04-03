@@ -13,6 +13,7 @@
     <ProjectReference Include="..\..\src\Mcp.Azure.Graph\Mcp.Azure.Graph.csproj" />
     <ProjectReference Include="..\..\src\Mcp.Azure.Authorization\Mcp.Azure.Authorization.csproj" />
     <ProjectReference Include="..\..\src\Mcp.Azure.ManagedServiceIdentities\Mcp.Azure.ManagedServiceIdentities.csproj" />
+    <ProjectReference Include="..\..\src\Mcp.Azure.ResourceManager\Mcp.Azure.ResourceManager.csproj" />
     <PackageReference Include="dotenv.net" />
   </ItemGroup>
 
