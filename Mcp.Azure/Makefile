@@ -10,7 +10,7 @@ clean:
 	dotnet clean
 
 test:
-	dotnet test
+	DOTNET_ENVIRONMENT_FILE=$(realpath .env) dotnet test
 
 run-server:
 	dotnet run --project sample/Mcp.Azure.Server/Mcp.Azure.Server.csproj
