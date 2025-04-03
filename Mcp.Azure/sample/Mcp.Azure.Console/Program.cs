@@ -4,8 +4,13 @@ using Mcp.Azure.Console;
 using Mcp.Azure.Context;
 using dotenv.net;
 using Mcp.Azure.Graph;
-var credentials = await LoadAzureCredentials(args);
-if (credentials == null) return;
+
+var credentials = LoadAzureCredentials(args);
+if (credentials == null)
+{
+    Console.WriteLine("Failed to load Azure credentials");
+    return;
+}
 
 try
 {
@@ -34,7 +39,7 @@ AzureContext LoadAzureContext(string[] args)
     return context;
 }
 
-async Task<AzureCredentials?> LoadAzureCredentials(string[] args)
+AzureCredentials? LoadAzureCredentials(string[] args)
 {
     var envPath = args.Length > 0 
         ? args[0] 
