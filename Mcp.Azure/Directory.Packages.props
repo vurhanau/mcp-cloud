@@ -1,0 +1,24 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Azure Packages -->
+    <PackageVersion Include="Azure.Identity" Version="1.13.2" />
+    <PackageVersion Include="Azure.ResourceManager.Authorization" Version="1.1.4" />
+    <PackageVersion Include="Azure.ResourceManager.ManagedServiceIdentities" Version="1.2.3" />
+    <PackageVersion Include="Azure.ResourceManager" Version="1.13.0" />
+    <PackageVersion Include="Microsoft.Graph" Version="5.75.0" />
+
+    <!-- Microsoft Extensions -->
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="9.0.3" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
+    
+    <!-- Model Context Protocol -->
+    <PackageVersion Include="ModelContextProtocol" Version="0.1.0-preview.4" />
+    
+    <!-- Other Dependencies -->
+    <PackageVersion Include="Microsoft.Rest.ClientRuntime" Version="2.3.24" />
+    <PackageVersion Include="dotenv.net" Version="3.0.0" />
+  </ItemGroup>
+</Project> 
