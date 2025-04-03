@@ -63,6 +63,7 @@ await CallToolAsync(client, "ListRoleAssignments", new Dictionary<string, object
 {
     ["scope"] = $"/subscriptions/{subscriptionId}",
 });
+await CallToolAsync(client, "ListResourceGroups", new Dictionary<string, object?>(baseParams));
 
 static async Task CallToolAsync(
     IMcpClient client, string toolName, Dictionary<string, object?> parameters)
