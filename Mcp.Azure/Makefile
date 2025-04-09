@@ -1,3 +1,5 @@
+ENV_FILE := $$HOME/.env
+
 .PHONY: build clean test run-server run-console
 
 build:
@@ -10,17 +12,17 @@ clean:
 	dotnet clean
 
 test:
-	dotnet test
+	DOTNET_ENVIRONMENT_FILE=$(ENV_FILE) dotnet test
 
 run-server:
 	dotnet run --project sample/Mcp.Azure.Server/Mcp.Azure.Server.csproj
 
 run-console:
 	@pushd sample/Mcp.Azure.Console && \
-	dotnet run --project Mcp.Azure.Console.csproj --  ../../.env && \
+	dotnet run --project Mcp.Azure.Console.csproj --  $(ENV_FILE) && \
 	popd
 
 run-client:
 	@pushd sample/Mcp.Azure.Client && \
-	dotnet run --project Mcp.Azure.Client.csproj -- ../../.env && \
+	dotnet run --project Mcp.Azure.Client.csproj -- $(ENV_FILE) && \
 	popd

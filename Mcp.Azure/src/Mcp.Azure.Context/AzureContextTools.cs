@@ -7,7 +7,7 @@ namespace Mcp.Azure.Context;
 public static class AzureContextTools
 {
     [McpServerTool, Description("Load Azure context from environment variables.")]
-    public static async Task<AzureContext> LoadContext(string? envPath = null)
+    public static Task<AzureContext> LoadContext(string? envPath = null)
     {
         var context = AzureContext.LoadFromEnvironment(envPath);
         if (context == null)
@@ -15,6 +15,6 @@ public static class AzureContextTools
             throw new InvalidOperationException("Azure context not found in environment variables.");
         }
 
-        return context;
+        return Task.FromResult(context);
     }
 }
