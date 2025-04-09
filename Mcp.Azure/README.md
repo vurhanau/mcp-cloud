@@ -1,4 +1,4 @@
-# MCP Cloud - Azure
+# MCP Azure
 
 ## Overview
 
@@ -8,12 +8,3 @@ This project provides a standardized interface for accessing Azure cloud resourc
 ## Prerequisites
 
 - .NET 9.0 or higher
-
-
-## Supports
-- Graph
-    - List service principals
-- Managed Service Identities
-    - List
-- Role-based access control assignments
-    - List
