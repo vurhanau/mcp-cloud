@@ -25,7 +25,9 @@ internal static class RoleDefinitionOperations
         await foreach (var definition in roleDefinitions.GetAllAsync())
         {
             definitions.Add(new RoleDefinition(
-                definition.Data.Name ?? string.Empty,
+                definition.Data.Id.ToString(),
+                definition.Data.Name,
+                definition.Data.RoleName ?? string.Empty,
                 definition.Data.Description ?? string.Empty,
                 definition.Data.RoleType.ToString() ?? string.Empty,
                 definition.Data.Permissions?.SelectMany(p => p.Actions ?? new List<string>()).ToList() ?? new List<string>()
@@ -50,32 +52,31 @@ internal static class RoleDefinitionOperations
         var resourceId = new ResourceIdentifier(scope);
         var roleDefinitions = armClient.GetAuthorizationRoleDefinitions(resourceId);
         
-        var parameters = new AuthorizationRoleDefinitionData
+        // https://github.com/Azure/azure-sdk-for-net/blob/eb8e9a2dcbc7953f558bb08552a904d2ef85458f/sdk/authorization/Azure.ResourceManager.Authorization/tests/Scenario/RoleDefinitionCollectionTests.cs
+        var data = new AuthorizationRoleDefinitionData()
         {
             RoleName = name,
             Description = description,
-            RoleType = AuthorizationRoleType.CustomRole
+            RoleType = AuthorizationRoleType.CustomRole,
+            AssignableScopes = { scope }
         };
-
         var permission = new RoleDefinitionPermission();
         foreach (var action in actions)
         {
             permission.Actions.Add(action);
         }
+        data.Permissions.Add(permission);
 
-        parameters.Permissions.Add(permission);
-
-        var result = await roleDefinitions.CreateOrUpdateAsync(
-            WaitUntil.Completed,
-            new ResourceIdentifier($"{scope}/providers/Microsoft.Authorization/roleDefinitions/{Guid.NewGuid()}"),
-            parameters
-        );
+        var id = Guid.NewGuid().ToString();
+        var result = await roleDefinitions.CreateOrUpdateAsync(WaitUntil.Completed, new ResourceIdentifier(id), data);
 
         return new RoleDefinition(
-            result.Value.Data.Name ?? string.Empty,
-            result.Value.Data.Description ?? string.Empty,
+            result.Value.Data.Id.ToString(),
+            result.Value.Data.Name,
+            result.Value.Data.RoleName,
+            result.Value.Data.Description,
             result.Value.Data.RoleType.ToString() ?? string.Empty,
-            result.Value.Data.Permissions?.SelectMany(p => p.Actions ?? new List<string>()).ToList() ?? new List<string>()
+            result.Value.Data.Permissions?.SelectMany(p => p.Actions ?? []).ToList() ?? []
         );
     }
 
@@ -89,11 +90,11 @@ internal static class RoleDefinitionOperations
         var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
         var armClient = new ArmClient(credential);
         
-        var resourceId = new ResourceIdentifier(scope);
-        var roleDefinitions = armClient.GetAuthorizationRoleDefinitions(resourceId);
-        var roleDefinitionId = new ResourceIdentifier($"{scope}/providers/Microsoft.Authorization/roleDefinitions/{roleDefinitionName}");
-        var roleDefinition = await roleDefinitions.GetAsync(roleDefinitionId);
+        var scopeId = new ResourceIdentifier(scope);
+        var roleDefinitions = armClient.GetAuthorizationRoleDefinitions(scopeId);
+        var resourceId = new ResourceIdentifier(roleDefinitionName);
+        var roleDefinition = await roleDefinitions.GetAsync(resourceId);
 
         await roleDefinition.Value.DeleteAsync(WaitUntil.Completed);
     }
-} 
+}

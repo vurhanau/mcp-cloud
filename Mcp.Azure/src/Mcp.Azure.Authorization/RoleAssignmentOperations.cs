@@ -31,7 +31,8 @@ internal static class RoleAssignmentOperations
         {
             assignments.Add(new RoleAssignment
             {
-                Name = assignment.Data.Name ?? string.Empty,
+                Id = assignment.Data.Id.ToString(),
+                Name = assignment.Data.Name,
                 PrincipalId = assignment.Data.PrincipalId?.ToString() ?? string.Empty,
                 PrincipalType = assignment.Data.PrincipalType?.ToString() ?? string.Empty,
                 RoleDefinitionId = assignment.Data.RoleDefinitionId?.ToString() ?? string.Empty,
@@ -69,6 +70,7 @@ internal static class RoleAssignmentOperations
 
         return new RoleAssignment
         {
+            Id = result.Value.Data.Id.ToString(),
             Name = result.Value.Data.Name ?? string.Empty,
             PrincipalId = result.Value.Data.PrincipalId?.ToString() ?? string.Empty,
             PrincipalType = result.Value.Data.PrincipalType?.ToString() ?? string.Empty,

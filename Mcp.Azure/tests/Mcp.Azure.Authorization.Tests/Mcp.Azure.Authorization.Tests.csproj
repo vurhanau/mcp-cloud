@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
@@ -25,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../../src/Mcp.Azure.Authorization/Mcp.Azure.Authorization.csproj" />
+    <ProjectReference Include="../Mcp.Azure.Tests.Common/Mcp.Azure.Tests.Common.csproj" />
   </ItemGroup>
 
 </Project> 

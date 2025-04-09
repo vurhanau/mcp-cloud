@@ -2,6 +2,7 @@ namespace Mcp.Azure.Authorization;
 
 public class RoleAssignment
 {
+    public string Id { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public string PrincipalId { get; set; } = string.Empty;
     public string PrincipalType { get; set; } = string.Empty;
