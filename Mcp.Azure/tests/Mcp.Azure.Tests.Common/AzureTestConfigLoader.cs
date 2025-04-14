@@ -14,7 +14,7 @@ public class AzureTestConfigLoader
 
     public static AzureTestConfig FromDotEnv(string dotEnvFilePath)
     {
-        LoadEnvironmentVariables(dotEnvFilePath);
+        DotEnv.Load(options: new DotEnvOptions(envFilePaths: [dotEnvFilePath]));
 
         var tenantId = GetEnvironmentVariable("AZURE_TENANT_ID");
         var clientId = GetEnvironmentVariable("AZURE_CLIENT_ID");
@@ -32,15 +32,6 @@ public class AzureTestConfigLoader
             credential: credential,
             principalId: principalId
         );
-    }
-
-    private static void LoadEnvironmentVariables(string dotEnvFilePath)
-    {
-        var homeDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        var envFile = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT_FILE") 
-                      ?? Path.Combine(homeDirectory, ".env");
-
-        DotEnv.Load(options: new DotEnvOptions(envFilePaths: new[] { envFile }));
     }
 
     private static string GetEnvironmentVariable(string variableName)
