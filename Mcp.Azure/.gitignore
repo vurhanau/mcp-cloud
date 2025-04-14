@@ -24,6 +24,13 @@ bld/
 [Ll]og/
 [Ll]ogs/
 
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
 # Visual Studio Code
 .vscode/
 *.code-workspace
