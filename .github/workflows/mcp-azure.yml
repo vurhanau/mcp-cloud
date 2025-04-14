@@ -1,0 +1,42 @@
+name: MCP Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Mcp.Azure
+    steps:
+    # Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Setup .NET environment
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '9.x'
+
+    # Restore dependencies
+    - name: Restore dependencies
+      run: dotnet restore Mcp.Azure.sln
+
+    # Build the solution
+    - name: Build solution
+      run: dotnet build Mcp.Azure.sln --configuration Release --no-restore
+
+    - name: Run tests
+      env:
+        AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+        AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+        AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        TEST_PRINCIPAL_ID: ${{ secrets.TEST_PRINCIPAL_ID }}
+      run: dotnet test Mcp.Azure.sln --configuration Release --no-build --verbosity normal
