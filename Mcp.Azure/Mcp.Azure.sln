@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcp.Azure.Context", "src\Mc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcp.Azure.ManagedServiceIdentities.Tests", "tests\Mcp.Azure.ManagedServiceIdentities.Tests\Mcp.Azure.ManagedServiceIdentities.Tests.csproj", "{90B17EFF-CC7F-490C-A03A-B46BECF09180}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcp.Azure.Graph.Tests", "tests\Mcp.Azure.Graph.Tests\Mcp.Azure.Graph.Tests.csproj", "{4D845218-420F-42B5-8C95-6235E5BAB1FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,18 @@ Global
 		{90B17EFF-CC7F-490C-A03A-B46BECF09180}.Release|x64.Build.0 = Release|Any CPU
 		{90B17EFF-CC7F-490C-A03A-B46BECF09180}.Release|x86.ActiveCfg = Release|Any CPU
 		{90B17EFF-CC7F-490C-A03A-B46BECF09180}.Release|x86.Build.0 = Release|Any CPU
+		{4D845218-420F-42B5-8C95-6235E5BAB1FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D845218-420F-42B5-8C95-6235E5BAB1FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D845218-420F-42B5-8C95-6235E5BAB1FA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4D845218-420F-42B5-8C95-6235E5BAB1FA}.Debug|x64.Build.0 = Debug|Any CPU
+		{4D845218-420F-42B5-8C95-6235E5BAB1FA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4D845218-420F-42B5-8C95-6235E5BAB1FA}.Debug|x86.Build.0 = Debug|Any CPU
+		{4D845218-420F-42B5-8C95-6235E5BAB1FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D845218-420F-42B5-8C95-6235E5BAB1FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D845218-420F-42B5-8C95-6235E5BAB1FA}.Release|x64.ActiveCfg = Release|Any CPU
+		{4D845218-420F-42B5-8C95-6235E5BAB1FA}.Release|x64.Build.0 = Release|Any CPU
+		{4D845218-420F-42B5-8C95-6235E5BAB1FA}.Release|x86.ActiveCfg = Release|Any CPU
+		{4D845218-420F-42B5-8C95-6235E5BAB1FA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,5 +156,6 @@ Global
 		{65F1A35C-990B-47D1-89A8-F31294C8FD23} = {EAE2EE32-34EA-4525-A971-04842C7F4914}
 		{2CDC9F34-0307-4B9B-914C-A622C603B022} = {EAE2EE32-34EA-4525-A971-04842C7F4914}
 		{90B17EFF-CC7F-490C-A03A-B46BECF09180} = {4FECCDAC-4B71-4575-9FFF-390E895BD09B}
+		{4D845218-420F-42B5-8C95-6235E5BAB1FA} = {4FECCDAC-4B71-4575-9FFF-390E895BD09B}
 	EndGlobalSection
 EndGlobal
