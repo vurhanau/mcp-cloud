@@ -14,6 +14,13 @@ public class AzureResourceManager
         _armClient = new ArmClient(credential);
     }
 
+    /// <summary>
+    /// Creates a new resource group in the specified subscription.
+    /// </summary>
+    /// <returns>
+    /// Fully qualified resource ID for the resource. <br/>
+    /// Example: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}.
+    /// </returns>
     public async Task<string> CreateTestResourceGroupAsync(string subscriptionId)
     {
         var subscription = _armClient.GetSubscriptionResource(new ResourceIdentifier($"/subscriptions/{subscriptionId}"));
