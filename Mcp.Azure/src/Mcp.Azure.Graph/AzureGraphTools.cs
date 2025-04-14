@@ -8,6 +8,8 @@ namespace Mcp.Azure.Graph;
 [McpServerToolType]
 public static class AzureGraphTools
 {
+    private const int Limit = 500;
+
     [McpServerTool, Description("Gets the list of Azure Service Principals in the specified tenant.")]
     public static async Task<IReadOnlyList<ServicePrincipal>> ListServicePrincipals(
         [Description("The tenant ID to use for authentication")] string tenantId,
@@ -20,12 +22,13 @@ public static class AzureGraphTools
         var servicePrincipals = await graphClient.ServicePrincipals
             .GetAsync(requestConfiguration =>
             {
-                requestConfiguration.QueryParameters.Select = new[] { "id", "displayName", "appId", "appOwnerOrganizationId", "description" };
+                requestConfiguration.QueryParameters.Top = Limit;
+                requestConfiguration.QueryParameters.Select = ["id", "displayName", "appId", "appOwnerOrganizationId", "description"];
             });
 
         if (servicePrincipals?.Value == null)
         {
-            return Array.Empty<ServicePrincipal>();
+            return [];
         }
 
         return servicePrincipals.Value.Select(sp => new ServicePrincipal(
