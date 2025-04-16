@@ -18,7 +18,9 @@
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="9.0.3" />
     
     <!-- Model Context Protocol -->
-    <PackageVersion Include="ModelContextProtocol" Version="0.1.0-preview.4" />
+    <PackageVersion Include="ModelContextProtocol" Version="0.1.0-preview.9" />
+    <PackageVersion Include="ModelContextProtocol.AspNetCore" Version="0.1.0-preview.9" />
+
     
     <!-- Other Dependencies -->
     <PackageVersion Include="Microsoft.Rest.ClientRuntime" Version="2.3.24" />

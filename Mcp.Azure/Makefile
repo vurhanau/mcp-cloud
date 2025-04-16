@@ -31,3 +31,11 @@ run-client:
 	@pushd sample/Mcp.Azure.Client && \
 	dotnet run --project Mcp.Azure.Client.csproj -- $(ENV_FILE) && \
 	popd
+
+.PHONY: run-sse-server
+run-sse-server:
+	dotnet run --project sample/Mcp.Azure.Server/Mcp.Azure.Server.csproj
+
+.PHONY: inspect
+inspect:
+	@npx @modelcontextprotocol/inspector
